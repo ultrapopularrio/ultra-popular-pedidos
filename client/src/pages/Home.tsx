@@ -72,6 +72,7 @@ export default function Home() {
     city: "",
     paymentMethod: "money",
   });
+  const [additionalProducts, setAdditionalProducts] = useState("");
 
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
@@ -156,6 +157,13 @@ export default function Home() {
     message += `Endereço: ${customerData.address}\n`;
     message += `Bairro: ${customerData.neighborhood}\n`;
     message += `Cidade: ${customerData.city}\n`;
+    
+    // Adicionar produtos adicionais se houver
+    if (additionalProducts.trim()) {
+      message += `\n*PRODUTOS ADICIONAIS:*\n${additionalProducts}\n`;
+      message += `\nObs: A disponibilidade e o pre\u00e7o destes itens ser\u00e3o confirmados via WhatsApp.\n`;
+    }
+    
     const paymentMethods: { [key: string]: string } = {
       money: "Dinheiro",
       card: "Cartão",
@@ -417,6 +425,22 @@ export default function Home() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
                     placeholder="Cidade"
                   />
+                </div>
+
+                {/* Additional Products */}
+                <div>
+                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                    Quer incluir algum produto que não está na lista? (Opcional)
+                  </label>
+                  <textarea
+                    value={additionalProducts}
+                    onChange={(e) => setAdditionalProducts(e.target.value)}
+                    placeholder="Digite aqui nome e quantidade desejada, ex:\n2x Novalgina 1g cx 10 comp\n1x Protetor Solar Sundown FPS 50"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600 min-h-24 font-sm"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Obs: A disponibilidade e o preço destes itens serão confirmados via WhatsApp.
+                  </p>
                 </div>
 
                 {/* Payment Method */}
