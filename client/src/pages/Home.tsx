@@ -156,7 +156,12 @@ export default function Home() {
     message += `Endereço: ${customerData.address}\n`;
     message += `Bairro: ${customerData.neighborhood}\n`;
     message += `Cidade: ${customerData.city}\n`;
-    message += `Forma de Pagamento: ${customerData.paymentMethod === "money" ? "Dinheiro" : "Cartão"}\n`;
+    const paymentMethods: { [key: string]: string } = {
+      money: "Dinheiro",
+      card: "Cartão",
+      pix: "Pix",
+    };
+    message += `Forma de Pagamento: ${paymentMethods[customerData.paymentMethod] || customerData.paymentMethod}\n`;
 
     // Redirecionar para WhatsApp da loja selecionada
     const whatsappUrl = formatWhatsAppUrl(store.whatsappNumber, message);
@@ -431,6 +436,7 @@ export default function Home() {
                   >
                     <option value="money">Dinheiro</option>
                     <option value="card">Cartão</option>
+                    <option value="pix">Pix</option>
                   </select>
                 </div>
 
