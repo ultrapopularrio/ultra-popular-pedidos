@@ -18,7 +18,7 @@ export interface Store {
 export const STORES: Store[] = [
   {
     id: "ultra-vasco",
-    name: "Ultra Vasco",
+    name: "Ultra Popular Vasco",
     city: "Belford Roxo",
     whatsapp: "(21) 96845-0574",
     whatsappNumber: "5521968450574",
