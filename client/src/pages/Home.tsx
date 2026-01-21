@@ -37,27 +37,27 @@ const PRODUCTS: Product[] = [
     id: "pampers-1",
     name: "Fraldas Pampers Confort Sec P.",
     price: 54.99,
-    image: "https://via.placeholder.com/200x200?text=Pampers",
+    image: "https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg",
     size: "P",
   },
   {
     id: "huggies-1",
     name: "Lenços Umedecidos Huggies Max Clean 48 un",
     price: 9.9,
-    image: "https://via.placeholder.com/200x200?text=Huggies",
+    image: "https://ultrapopularrio.github.io/Tempreco/img/Lencohuggies.jpg",
   },
   {
     id: "leite-ninho-1",
     name: "Leite Ninho Fases 1+ Lata 800g",
     price: 38.9,
     originalPrice: 45.5,
-    image: "https://via.placeholder.com/200x200?text=Ninho",
+    image: "https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg",
   },
   {
     id: "dorflex-1",
     name: "Dorflex Caixa 10 comprimidos",
     price: 5.5,
-    image: "https://via.placeholder.com/200x200?text=Dorflex",
+    image: "https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png",
   },
 ];
 
