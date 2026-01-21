@@ -179,13 +179,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-red-600 text-white py-6 shadow-md">
+      <header className="bg-red-600 text-white py-4 shadow-md">
         <div className="container">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">Ultra Popular</h1>
-              <p className="text-red-100">Drogarias</p>
-            </div>
+            <img src="/logo.png" alt="Ultra Popular Logo" className="h-20" />
             <div className="text-right">
               <p className="text-sm">Monte seu pedido abaixo e envie pelo WhatsApp!</p>
             </div>
