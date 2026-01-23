@@ -44,6 +44,9 @@
             margin: 20px 0 15px 0;
             color: #1a1a1a;
         }
+        .carousel-wrapper {
+            margin-bottom: 25px;
+        }
         .carousel-container {
             position: relative;
             margin-bottom: 20px;
@@ -279,124 +282,301 @@
     </div>
 
     <div class="container">
-        <div class="section-title">Produtos Disponíveis</div>
+        <!-- CARROSSEL FRALDAS -->
+        <div class="carousel-wrapper">
+            <div class="section-title">🍼 Fraldas</div>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-fraldas">
+                    <!-- Fraldas Pampers -->
+                    <div class="product-card">
+                        <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Pampers" class="product-image">
+                        <div class="product-name">Fraldas Pampers Confort Sec</div>
+                        <div class="product-price">R$ 54,99</div>
+                        <div class="size-selector">
+                            <label class="size-label">Tamanho:</label>
+                            <select id="size-pampers" onchange="updateSize('pampers', this.value)">
+                                <option value="">Escolha o tamanho</option>
+                                <option value="P">P</option>
+                                <option value="M" selected>M</option>
+                                <option value="G">G</option>
+                                <option value="XG">XG</option>
+                            </select>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('pampers')">−</button>
+                            <div class="quantity-display" id="qty-pampers">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('pampers')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('pampers', 'Fraldas Pampers', 54.99)">Adicionar</button>
+                    </div>
 
-        <!-- CAROUSEL DE FRALDAS -->
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <!-- Fraldas Pampers -->
-                <div class="product-card">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Pampers" class="product-image">
-                    <div class="product-name">Fraldas Pampers Confort Sec P.</div>
-                    <div class="product-price">R$ 54,99</div>
-                    <div class="size-selector">
-                        <label class="size-label">Tamanho:</label>
-                        <select id="size-pampers" onchange="updateSize('pampers', this.value)">
-                            <option value="">Escolha o tamanho</option>
-                            <option value="P">P</option>
-                            <option value="M" selected>M</option>
-                            <option value="G">G</option>
-                            <option value="XG">XG</option>
-                        </select>
+                    <!-- Fraldas Babysec Hiper -->
+                    <div class="product-card">
+                        <img src="https://www.amazon.com.br/Fralda-Infantil-Babysec-Azul-Grande/dp/B07C3XMTFY" alt="Fraldas Babysec Hiper" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Babysec+Hiper'">
+                        <div class="product-name">Fraldas Babysec Hiper</div>
+                        <div class="product-price">R$ 59,99</div>
+                        <div class="size-selector">
+                            <label class="size-label">Tamanho:</label>
+                            <select id="size-babysec-hiper" onchange="updateSize('babysec-hiper', this.value)">
+                                <option value="">Escolha o tamanho</option>
+                                <option value="P">P</option>
+                                <option value="M" selected>M</option>
+                                <option value="G">G</option>
+                                <option value="XG">XG</option>
+                            </select>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('babysec-hiper')">−</button>
+                            <div class="quantity-display" id="qty-babysec-hiper">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('babysec-hiper')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('babysec-hiper', 'Fraldas Babysec Hiper', 59.99)">Adicionar</button>
                     </div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('pampers')">−</button>
-                        <div class="quantity-display" id="qty-pampers">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('pampers')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('pampers', 'Fraldas Pampers', 54.99)">Adicionar</button>
-                </div>
 
-                <!-- Fraldas Babysec -->
-                <div class="product-card">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Babysec" class="product-image">
-                    <div class="product-name">Fraldas Babysec Premium P.</div>
-                    <div class="product-price">R$ 49,99</div>
-                    <div class="size-selector">
-                        <label class="size-label">Tamanho:</label>
-                        <select id="size-babysec" onchange="updateSize('babysec', this.value)">
-                            <option value="">Escolha o tamanho</option>
-                            <option value="P">P</option>
-                            <option value="M" selected>M</option>
-                            <option value="G">G</option>
-                            <option value="XG">XG</option>
-                        </select>
+                    <!-- Fraldas Babysec Mega -->
+                    <div class="product-card">
+                        <img src="https://www.amazon.com.br/Fralda-Infantil-Babysec-Azul-Grande/dp/B07C3XMTFY" alt="Fraldas Babysec Mega" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Babysec+Mega'">
+                        <div class="product-name">Fraldas Babysec Mega</div>
+                        <div class="product-price">R$ 32,99</div>
+                        <div class="size-selector">
+                            <label class="size-label">Tamanho:</label>
+                            <select id="size-babysec-mega" onchange="updateSize('babysec-mega', this.value)">
+                                <option value="">Escolha o tamanho</option>
+                                <option value="P">P</option>
+                                <option value="M" selected>M</option>
+                                <option value="G">G</option>
+                                <option value="XG">XG</option>
+                            </select>
+                        </div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('babysec-mega')">−</button>
+                            <div class="quantity-display" id="qty-babysec-mega">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('babysec-mega')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('babysec-mega', 'Fraldas Babysec Mega', 32.99)">Adicionar</button>
                     </div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('babysec')">−</button>
-                        <div class="quantity-display" id="qty-babysec">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('babysec')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('babysec', 'Fraldas Babysec', 49.99)">Adicionar</button>
                 </div>
-
-                <!-- Fraldas Turma da Mônica -->
-                <div class="product-card">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Turma da Mônica" class="product-image">
-                    <div class="product-name">Fraldas Turma da Mônica P.</div>
-                    <div class="product-price">R$ 45,99</div>
-                    <div class="size-selector">
-                        <label class="size-label">Tamanho:</label>
-                        <select id="size-turma" onchange="updateSize('turma', this.value)">
-                            <option value="">Escolha o tamanho</option>
-                            <option value="P">P</option>
-                            <option value="M" selected>M</option>
-                            <option value="G">G</option>
-                            <option value="XG">XG</option>
-                        </select>
-                    </div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('turma')">−</button>
-                        <div class="quantity-display" id="qty-turma">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('turma')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('turma', 'Fraldas Turma da Mônica', 45.99)">Adicionar</button>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-fraldas', -1)">❮</button>
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-fraldas', 1)">❯</button>
                 </div>
-
-                <!-- Fraldas Huggies -->
-                <div class="product-card">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Lencohuggies.jpg" alt="Huggies" class="product-image">
-                    <div class="product-name">Lenços Umedecidos Huggies Max Clean 48 un</div>
-                    <div class="product-price">R$ 9,90</div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('huggies')">−</button>
-                        <div class="quantity-display" id="qty-huggies">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('huggies')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('huggies', 'Lenços Huggies', 9.90)">Adicionar</button>
-                </div>
-            </div>
-            <div class="carousel-nav">
-                <button class="carousel-btn" onclick="scrollCarousel(-1)">❮</button>
-                <button class="carousel-btn" onclick="scrollCarousel(1)">❯</button>
             </div>
         </div>
 
-        <!-- OUTROS PRODUTOS -->
-        <div class="section-title">Outros Produtos</div>
+        <!-- CARROSSEL LENÇOS/TOALHAS -->
+        <div class="carousel-wrapper">
+            <div class="section-title">🧻 Lenços & Toalhas</div>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-lencos">
+                    <!-- Toalha Bebê Limpinho -->
+                    <div class="product-card">
+                        <img src="https://www.amazon.com.br/Umedecido-Limpinho-unidade-Umidecidos-Natureza/dp/B0GC9NWHD3" alt="Toalha Limpinho" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Toalha+Limpinho'">
+                        <div class="product-name">Toalha Bebê Limpinho Cimed 140un</div>
+                        <div class="product-price">R$ 7,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('toalha-limpinho')">−</button>
+                            <div class="quantity-display" id="qty-toalha-limpinho">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('toalha-limpinho')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('toalha-limpinho', 'Toalha Bebê Limpinho Cimed 140un', 7.99)">Adicionar</button>
+                    </div>
 
-        <div class="product-card" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" alt="Leite Ninho" class="product-image">
-            <div class="product-name">Leite Ninho Fases 1+ Lata 800g</div>
-            <div class="product-price">R$ 38,90</div>
-            <div class="quantity-control">
-                <button class="quantity-btn" onclick="decrementQty('ninho')">−</button>
-                <div class="quantity-display" id="qty-ninho">0</div>
-                <button class="quantity-btn" onclick="incrementQty('ninho')">+</button>
+                    <!-- Lenços Huggies (placeholder para próximos) -->
+                    <div class="product-card">
+                        <img src="https://ultrapopularrio.github.io/Tempreco/img/Lencohuggies.jpg" alt="Lenços Huggies" class="product-image">
+                        <div class="product-name">Lenços Umedecidos Huggies Max Clean 48un</div>
+                        <div class="product-price">R$ 9,90</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('lencos-huggies')">−</button>
+                            <div class="quantity-display" id="qty-lencos-huggies">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('lencos-huggies')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('lencos-huggies', 'Lenços Umedecidos Huggies Max Clean 48un', 9.90)">Adicionar</button>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-lencos', -1)">❮</button>
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-lencos', 1)">❯</button>
+                </div>
             </div>
-            <button class="add-btn" onclick="addToCart('ninho', 'Leite Ninho', 38.90)">Adicionar</button>
         </div>
 
-        <div class="product-card" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" alt="Dorflex" class="product-image">
-            <div class="product-name">Dorflex Caixa 10 comprimidos</div>
-            <div class="product-price">R$ 5,50</div>
-            <div class="quantity-control">
-                <button class="quantity-btn" onclick="decrementQty('dorflex')">−</button>
-                <div class="quantity-display" id="qty-dorflex">0</div>
-                <button class="quantity-btn" onclick="incrementQty('dorflex')">+</button>
+        <!-- CARROSSEL LEITES -->
+        <div class="carousel-wrapper">
+            <div class="section-title">🥛 Leites</div>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-leites">
+                    <!-- Leite Ninho Integral -->
+                    <div class="product-card">
+                        <img src="https://www.amazon.com.br/Leite-Integral-Ninho-Lata-380g/dp/B0FRFDSCSP" alt="Leite Ninho Integral" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Ninho+Integral'">
+                        <div class="product-name">Leite Ninho Integral 380g</div>
+                        <div class="product-price">R$ 17,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('ninho-integral')">−</button>
+                            <div class="quantity-display" id="qty-ninho-integral">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('ninho-integral')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('ninho-integral', 'Leite Ninho Integral 380g', 17.99)">Adicionar</button>
+                    </div>
+
+                    <!-- Composto Lacteo Ninho Fases +1 -->
+                    <div class="product-card">
+                        <img src="https://www.amazon.com.br/NINHO-Ad-bm13-43456-Fases-1-800g/dp/B07MFFQFXK" alt="Ninho Fases +1" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Ninho+Fases'">
+                        <div class="product-name">Composto Lacteo Ninho Fases +1 800g</div>
+                        <div class="product-price">R$ 42,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('ninho-fases')">−</button>
+                            <div class="quantity-display" id="qty-ninho-fases">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('ninho-fases')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('ninho-fases', 'Composto Lacteo Ninho Fases +1 800g', 42.99)">Adicionar</button>
+                    </div>
+
+                    <!-- Leite Ninho Fases 1+ (anterior) -->
+                    <div class="product-card">
+                        <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" alt="Leite Ninho" class="product-image">
+                        <div class="product-name">Leite Ninho Fases 1+ Lata 800g</div>
+                        <div class="product-price">R$ 38,90</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('ninho')">−</button>
+                            <div class="quantity-display" id="qty-ninho">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('ninho')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('ninho', 'Leite Ninho Fases 1+ Lata 800g', 38.90)">Adicionar</button>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-leites', -1)">❮</button>
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-leites', 1)">❯</button>
+                </div>
             </div>
-            <button class="add-btn" onclick="addToCart('dorflex', 'Dorflex', 5.50)">Adicionar</button>
+        </div>
+
+        <!-- CARROSSEL CEREAIS/ALIMENTOS -->
+        <div class="carousel-wrapper">
+            <div class="section-title">🥣 Cereais & Alimentos</div>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-cereais">
+                    <!-- Mucilon Sache -->
+                    <div class="product-card">
+                        <img src="https://www.amazon.com.br/Cereal-Infantil-Arroz-Aveia-Mucilon/dp/B07ZD9LYRT" alt="Mucilon Sache" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Mucilon'">
+                        <div class="product-name">Mucilon Sache 360g</div>
+                        <div class="product-price">R$ 7,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('mucilon')">−</button>
+                            <div class="quantity-display" id="qty-mucilon">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('mucilon')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('mucilon', 'Mucilon Sache 360g', 7.99)">Adicionar</button>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-cereais', -1)">❮</button>
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-cereais', 1)">❯</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARROSSEL FÓRMULAS INFANTIS -->
+        <div class="carousel-wrapper">
+            <div class="section-title">👶 Fórmulas Infantis</div>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-formulas">
+                    <!-- Aptamil Premium 1 -->
+                    <div class="product-card">
+                        <img src="https://www.farmaciaindiana.com.br/formula-infantil-aptamil-premium-1-800g--0-6-meses/p?idsku=57279" alt="Aptamil Premium 1" class="product-image" onerror="this.src='https://via.placeholder.com/200x200?text=Aptamil+1'">
+                        <div class="product-name">Fórmula Infantil Aptamil Premium 1 800g</div>
+                        <div class="product-price">R$ 57,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('aptamil-1')">−</button>
+                            <div class="quantity-display" id="qty-aptamil-1">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('aptamil-1')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('aptamil-1', 'Fórmula Infantil Aptamil Premium 1 800g', 57.99)">Adicionar</button>
+                    </div>
+
+                    <!-- Aptamil Premium 2 -->
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200x200?text=Aptamil+2" alt="Aptamil Premium 2" class="product-image">
+                        <div class="product-name">Fórmula Infantil Aptamil Premium 2 800g</div>
+                        <div class="product-price">R$ 57,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('aptamil-2')">−</button>
+                            <div class="quantity-display" id="qty-aptamil-2">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('aptamil-2')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('aptamil-2', 'Fórmula Infantil Aptamil Premium 2 800g', 57.99)">Adicionar</button>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-formulas', -1)">❮</button>
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-formulas', 1)">❯</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARROSSEL HIGIENE/OUTROS -->
+        <div class="carousel-wrapper">
+            <div class="section-title">🧴 Higiene & Outros</div>
+            <div class="carousel-container">
+                <div class="carousel" id="carousel-higiene">
+                    <!-- Repelente OFF -->
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200x200?text=Repelente+OFF" alt="Repelente OFF" class="product-image">
+                        <div class="product-name">Repelente OFF Loção Family 200ml</div>
+                        <div class="product-price">R$ 14,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('repelente-off')">−</button>
+                            <div class="quantity-display" id="qty-repelente-off">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('repelente-off')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('repelente-off', 'Repelente OFF Loção Family 200ml', 14.99)">Adicionar</button>
+                    </div>
+
+                    <!-- Nistatina + Óxido de Zinco -->
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200x200?text=Nistatina" alt="Nistatina" class="product-image">
+                        <div class="product-name">Nistatina + Óxido de Zinco 60g Neo Química</div>
+                        <div class="product-price">R$ 7,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('nistatina')">−</button>
+                            <div class="quantity-display" id="qty-nistatina">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('nistatina')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('nistatina', 'Nistatina + Óxido de Zinco 60g Neo Química', 7.99)">Adicionar</button>
+                    </div>
+
+                    <!-- Sabonete Granado Bebê -->
+                    <div class="product-card">
+                        <img src="https://via.placeholder.com/200x200?text=Sabonete+Granado" alt="Sabonete Granado" class="product-image">
+                        <div class="product-name">Sabonete Granado Bebê 250ml Refil</div>
+                        <div class="product-price">R$ 14,99</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('sabonete-granado')">−</button>
+                            <div class="quantity-display" id="qty-sabonete-granado">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('sabonete-granado')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('sabonete-granado', 'Sabonete Granado Bebê 250ml Refil', 14.99)">Adicionar</button>
+                    </div>
+
+                    <!-- Dorflex (anterior) -->
+                    <div class="product-card">
+                        <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" alt="Dorflex" class="product-image">
+                        <div class="product-name">Dorflex Caixa 10 comprimidos</div>
+                        <div class="product-price">R$ 5,50</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decrementQty('dorflex')">−</button>
+                            <div class="quantity-display" id="qty-dorflex">0</div>
+                            <button class="quantity-btn" onclick="incrementQty('dorflex')">+</button>
+                        </div>
+                        <button class="add-btn" onclick="addToCart('dorflex', 'Dorflex Caixa 10 comprimidos', 5.50)">Adicionar</button>
+                    </div>
+                </div>
+                <div class="carousel-nav">
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-higiene', -1)">❮</button>
+                    <button class="carousel-btn" onclick="scrollCarousel('carousel-higiene', 1)">❯</button>
+                </div>
+            </div>
         </div>
 
         <!-- CARRINHO -->
@@ -552,21 +732,13 @@
             document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
         }
 
-        function scrollCarousel(direction) {
-            const carousel = document.getElementById('carousel');
+        function scrollCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
             const scrollAmount = carousel.offsetWidth * 0.8;
             carousel.scrollBy({
                 left: direction * scrollAmount,
                 behavior: 'smooth'
             });
-        }
-
-        function formatPhone(phone) {
-            const digits = phone.replace(/\D/g, '');
-            if (digits.length === 11) {
-                return digits;
-            }
-            return digits;
         }
 
         function submitForm(event) {
