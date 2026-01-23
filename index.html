@@ -683,7 +683,8 @@
         }
 
         function addToCart(productId, productName, price) {
-            const qty = parseInt(document.getElementById(`qty-${productId}`).textContent) || 0;
+            const qtyElement = document.getElementById(`qty-${productId}`);
+            const qty = parseInt(qtyElement.textContent) || 0;
             const size = sizes[productId] || '';
             
             if (qty === 0) {
@@ -704,10 +705,11 @@
             if (cart[key]) {
                 cart[key].qty += qty;
             } else {
-                cart[key] = { name: displayName, price: price, qty: qty };
+                cart[key] = { name: displayName, price: parseFloat(price), qty: qty };
             }
 
-            document.getElementById(`qty-${productId}`).textContent = '0';
+            qtyElement.textContent = '0';
+            console.log('Cart updated:', cart);
             updateCartDisplay();
         }
 
