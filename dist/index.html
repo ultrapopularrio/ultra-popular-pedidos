@@ -529,6 +529,11 @@
 
             document.getElementById(`qty-${productId}`).textContent = '0';
             updateCartDisplay();
+            
+            // Scroll automático para o carrinho
+            setTimeout(() => {
+                document.getElementById('cart-items').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
         }
 
         function updateCartDisplay() {

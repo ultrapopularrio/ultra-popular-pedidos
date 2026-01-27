@@ -97,3 +97,15 @@
 [2026-01-23T13:45:58.965Z] Starting dev server with command: pnpm run dev
 [2026-01-23T13:45:59.251Z] ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND  No package.json (or package.yaml, or package.json5) was found in "/home/ubuntu/ultra-popular-pedidos".
 [2026-01-23T13:45:59.267Z] Dev server exited with code 1
+[2026-01-27T11:23:00.119Z] Starting dev server with command: pnpm run dev
+[2026-01-27T11:23:00.720Z] 
+[2026-01-27T11:23:00.721Z] > ultra-popular-pedidos@1.0.0 dev /home/ubuntu/ultra-popular-pedidos
+[2026-01-27T11:23:00.721Z] > vite --host
+[2026-01-27T11:23:00.721Z] 
+[2026-01-27T11:23:00.955Z] 6:23:00 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+[2026-01-27T11:23:00.970Z] 
+[2026-01-27T11:23:00.970Z] VITE v7.1.9  ready in 218 ms
+[2026-01-27T11:23:00.971Z] 
+[2026-01-27T11:23:00.971Z] ➜  Local:   http://localhost:5173/
+[2026-01-27T11:23:00.971Z] ➜  Network: http://169.254.0.21:5173/
+[2026-01-27T11:23:29.189Z] 6:23:29 AM [vite] (client) page reload index.html
