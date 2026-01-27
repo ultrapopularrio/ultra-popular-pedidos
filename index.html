@@ -524,7 +524,7 @@
             if (cart[key]) {
                 cart[key].qty += qty;
             } else {
-                cart[key] = { name: displayName, price: price, qty: qty };
+                cart[key] = { name: displayName, price: parseFloat(price), qty: qty };
             }
 
             document.getElementById(`qty-${productId}`).textContent = '0';
@@ -532,7 +532,10 @@
             
             // Scroll automático para o carrinho
             setTimeout(() => {
-                document.getElementById('cart-items').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                const cartSection = document.querySelector('.cart-section');
+                if (cartSection) {
+                    cartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }, 100);
         }
 
