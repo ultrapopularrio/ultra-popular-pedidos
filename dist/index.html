@@ -527,8 +527,8 @@
                 cart[key] = { name: displayName, price: parseFloat(price), qty: qty };
             }
 
-            document.getElementById(`qty-${productId}`).textContent = '0';
             updateCartDisplay();
+            document.getElementById(`qty-${productId}`).textContent = '0';
             
             // Scroll automático para o carrinho
             setTimeout(() => {
