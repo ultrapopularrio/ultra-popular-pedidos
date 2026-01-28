@@ -285,7 +285,7 @@
         <div class="carousel-container">
             <div class="carousel" id="carousel">
                 <!-- Fraldas Pampers -->
-                <div class="product-card">
+                <div class="product-card" data-price="54.99">
                     <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Pampers" class="product-image">
                     <div class="product-name">Fraldas Pampers Confort Sec P.</div>
                     <div class="product-price">R$ 54,99</div>
@@ -308,7 +308,7 @@
                 </div>
 
                 <!-- Fraldas Babysec -->
-                <div class="product-card">
+                <div class="product-card" data-price="49.99">
                     <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Babysec" class="product-image">
                     <div class="product-name">Fraldas Babysec Premium P.</div>
                     <div class="product-price">R$ 49,99</div>
@@ -331,7 +331,7 @@
                 </div>
 
                 <!-- Fraldas Turma da Mônica -->
-                <div class="product-card">
+                <div class="product-card" data-price="45.99">
                     <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Turma da Mônica" class="product-image">
                     <div class="product-name">Fraldas Turma da Mônica P.</div>
                     <div class="product-price">R$ 45,99</div>
@@ -354,7 +354,7 @@
                 </div>
 
                 <!-- Fraldas Huggies -->
-                <div class="product-card">
+                <div class="product-card" data-price="9.90">
                     <img src="https://ultrapopularrio.github.io/Tempreco/img/Lencohuggies.jpg" alt="Huggies" class="product-image">
                     <div class="product-name">Lenços Umedecidos Huggies Max Clean 48 un</div>
                     <div class="product-price">R$ 9,90</div>
@@ -375,7 +375,7 @@
         <!-- OUTROS PRODUTOS -->
         <div class="section-title">Outros Produtos</div>
 
-        <div class="product-card" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="product-card" data-price="38.90" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" alt="Leite Ninho" class="product-image">
             <div class="product-name">Leite Ninho Fases 1+ Lata 800g</div>
             <div class="product-price">R$ 38,90</div>
@@ -387,7 +387,7 @@
             <button class="add-btn" onclick="addToCart('ninho', 'Leite Ninho', 38.90)">Adicionar</button>
         </div>
 
-        <div class="product-card" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="product-card" data-price="5.50" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" alt="Dorflex" class="product-image">
             <div class="product-name">Dorflex Caixa 10 comprimidos</div>
             <div class="product-price">R$ 5,50</div>
@@ -485,15 +485,6 @@
     <script>
         const cart = {};
         const sizes = {};
-        // Mapa de preços dos produtos para referência rápida
-        const productPrices = {
-            'pampers': 54.99,
-            'babysec': 49.99,
-            'turma': 45.99,
-            'huggies': 9.90,
-            'ninho': 38.90,
-            'dorflex': 5.50
-        };
 
         function incrementQty(product) {
             const qty = parseInt(document.getElementById(`qty-${product}`).textContent) || 0;
@@ -522,15 +513,47 @@
             qtyDisplays.forEach(display => {
                 const qty = parseInt(display.textContent) || 0;
                 if (qty > 0) {
-                    const productId = display.id.replace('qty-', '');
-                    // Usar o mapa de preços em vez de extrair do onclick
-                    if (productPrices[productId]) {
-                        total += productPrices[productId] * qty;
+                    const productCard = display.closest('.product-card');
+                    if (!productCard) return;
+                    
+                    // 1) tentar obter preço via data-price (mais confiável)
+                    let price = NaN;
+                    if (productCard.dataset && productCard.dataset.price) {
+                        price = parseFloat(productCard.dataset.price);
+                    }
+                    
+                    // 2) se não existir, tentar extrair do elemento .product-price (texto visível)
+                    if (isNaN(price)) {
+                        const priceEl = productCard.querySelector('.product-price');
+                        if (priceEl) {
+                            // remover tudo que não é número, vírgula ou ponto e normalizar vírgula para ponto
+                            const raw = priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.');
+                            price = parseFloat(raw);
+                        }
+                    }
+                    
+                    // 3) fallback: extrair do onclick do botão addToCart, mas somente se o botão existir
+                    if (isNaN(price)) {
+                        const addBtn = productCard.querySelector('[onclick*="addToCart"]');
+                        if (addBtn) {
+                            const onclickAttr = addBtn.getAttribute('onclick') || '';
+                            const priceMatch = onclickAttr.match(/,\s*([\d.]+)/);
+                            if (priceMatch && priceMatch[1]) {
+                                price = parseFloat(priceMatch[1]);
+                            }
+                        }
+                    }
+                    
+                    if (!isNaN(price)) {
+                        total += price * qty;
                     }
                 }
             });
             
-            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
+            const totalEl = document.getElementById('cart-total');
+            if (totalEl) {
+                totalEl.textContent = `R$ ${total.toFixed(2)}`;
+            }
         }
 
         function updateSize(product, size) {
