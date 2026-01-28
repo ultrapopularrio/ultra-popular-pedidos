@@ -3,702 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drogarias Ultra Popular - Pedidos WhatsApp</title>
+    <title>Drogarias Ultra Popular - Pedidos</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-        }
-        .header {
-            background-color: #E63946;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-        .header img {
-            height: 50px;
-            width: auto;
-        }
-        .header-text h1 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .container {
-            max-width: 100%;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        .section-title {
-            font-size: 20px;
-            font-weight: 700;
-            margin: 20px 0 15px 0;
-            color: #1a1a1a;
-        }
-        .carousel-container {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .carousel {
-            display: flex;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            gap: 15px;
-            padding: 10px 0;
-            scroll-snap-type: x mandatory;
-        }
-        .carousel::-webkit-scrollbar {
-            height: 6px;
-        }
-        .carousel::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .carousel::-webkit-scrollbar-thumb {
-            background: #E63946;
-            border-radius: 3px;
-        }
-        .product-card {
-            flex: 0 0 calc(100% - 30px);
-            background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            scroll-snap-align: start;
-        }
-        .product-image {
-            width: 100%;
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 10px;
-            background: #f9f9f9;
-            border-radius: 4px;
-        }
-        .product-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-        }
-        .product-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #E63946;
-            margin-bottom: 10px;
-        }
-        .size-selector {
-            margin-bottom: 10px;
-        }
-        .size-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 5px;
-            display: block;
-        }
-        select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .quantity-btn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #E63946;
-            background: white;
-            color: #E63946;
-            border-radius: 4px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .quantity-btn:active {
-            background: #f0f0f0;
-        }
-        .quantity-display {
-            flex: 1;
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-        }
-        .add-btn {
-            width: 100%;
-            padding: 10px;
-            background: #E63946;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .add-btn:active {
-            opacity: 0.9;
-        }
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .carousel-btn {
-            background: rgba(230, 57, 70, 0.8);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            pointer-events: all;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .carousel-btn:active {
-            background: #E63946;
-        }
-        .cart-section {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            font-weight: 700;
-            font-size: 16px;
-            color: #E63946;
-            margin-top: 10px;
-            border-top: 2px solid #E63946;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #333;
-        }
-        .form-label .required {
-            color: #E63946;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-            font-family: inherit;
-        }
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 14px;
-            background: #E63946;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .submit-btn:active {
-            opacity: 0.9;
-        }
-        .error-message {
-            color: #E63946;
-            font-size: 12px;
-            margin-top: 5px;
-            display: none;
-        }
-        .note {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-            font-style: italic;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; color: #333; padding-bottom: 40px; }
+        .header { background-color: #E63946; color: white; padding: 20px; text-align: center; }
+        .header img { height: 60px; margin-bottom: 10px; border-radius: 5px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 15px; }
+        .section-title { font-size: 19px; font-weight: 700; margin: 25px 0 10px 0; color: #1a1a1a; border-left: 5px solid #E63946; padding-left: 12px; }
+        
+        /* Carrosséis */
+        .carousel-wrapper { position: relative; margin-bottom: 10px; }
+        .carousel { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5px; scroll-behavior: smooth; }
+        .carousel::-webkit-scrollbar { height: 6px; }
+        .carousel::-webkit-scrollbar-thumb { background: #E63946; border-radius: 10px; }
+
+        .product-card { flex: 0 0 240px; background: white; border-radius: 10px; padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eee; }
+        .product-image { width: 100%; height: 120px; object-fit: contain; margin-bottom: 10px; }
+        .product-name { font-size: 14px; font-weight: 600; height: 40px; overflow: hidden; margin-bottom: 5px; }
+        .product-price { font-size: 17px; font-weight: 800; color: #E63946; margin-bottom: 10px; }
+
+        .label-small { font-size: 11px; font-weight: 700; color: #777; margin-bottom: 3px; display: block; }
+        .input-mini { width: 100%; padding: 7px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 13px; }
+
+        .quantity-control { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .quantity-btn { width: 35px; height: 35px; border: 1px solid #E63946; background: white; color: #E63946; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .quantity-display { flex: 1; text-align: center; font-weight: 700; font-size: 16px; }
+        .add-btn { width: 100%; padding: 10px; background: #E63946; color: white; border: none; border-radius: 5px; font-size: 13px; font-weight: 700; cursor: pointer; }
+
+        /* Formulário Fotos */
+        .form-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 25px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 15px; }
+        
+        .cart-preview { background: #fff; padding: 15px; border-radius: 8px; border-left: 5px solid #E63946; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .total-row { display: flex; justify-content: space-between; font-size: 20px; font-weight: 800; color: #E63946; margin-top: 10px; border-top: 1px solid #eee; padding-top: 10px; }
+        .submit-btn { width: 100%; padding: 18px; background: #25D366; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 17px; cursor: pointer; margin-top: 10px; }
+
+        @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+
     <div class="header">
-        <img src="https://ultrapopularrio.github.io/Tempreco/img/LogoUltraPopular.jpg" alt="Ultra Popular">
-        <div class="header-text">
-            <h1>Monte seu pedido abaixo e envie pelo WhatsApp!</h1>
-        </div>
+        <img src="https://ultrapopularrio.github.io/Tempreco/img/LogoUltraPopular.jpg" alt="Logo">
+        <h1>Monte seu pedido agora</h1>
     </div>
 
     <div class="container">
-        <div class="section-title">Produtos Disponíveis</div>
-
-        <!-- CAROUSEL DE FRALDAS -->
-        <div class="carousel-container">
-            <div class="carousel" id="carousel">
-                <!-- Fraldas Pampers -->
-                <div class="product-card" data-price="54.99">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Pampers" class="product-image">
-                    <div class="product-name">Fraldas Pampers Confort Sec P.</div>
-                    <div class="product-price">R$ 54,99</div>
-                    <div class="size-selector">
-                        <label class="size-label">Tamanho:</label>
-                        <select id="size-pampers" onchange="updateSize('pampers', this.value)">
-                            <option value="">Escolha o tamanho</option>
-                            <option value="P">P</option>
-                            <option value="M" selected>M</option>
-                            <option value="G">G</option>
-                            <option value="XG">XG</option>
-                        </select>
-                    </div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('pampers')">−</button>
-                        <div class="quantity-display" id="qty-pampers">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('pampers')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('pampers', 'Fraldas Pampers', 54.99)">Adicionar</button>
+        
+        <div class="section-title">Fraldas</div>
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                <div class="product-card" data-price="59.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" class="product-image">
+                    <div class="product-name">Fralda Babysec Hiper</div>
+                    <div class="product-price">R$ 59,99</div>
+                    <label class="label-small">Tamanho:</label>
+                    <select class="input-mini"><option>M</option><option>G</option><option>XG</option><option>XXG</option></select>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Babysec Hiper')">CONFIRMAR</button>
                 </div>
-
-                <!-- Fraldas Babysec -->
-                <div class="product-card" data-price="49.99">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Fraldas Babysec" class="product-image">
-                    <div class="product-name">Fraldas Babysec Premium P.</div>
-                    <div class="product-price">R$ 49,99</div>
-                    <div class="size-selector">
-                        <label class="size-label">Tamanho:</label>
-                        <select id="size-babysec" onchange="updateSize('babysec', this.value)">
-                            <option value="">Escolha o tamanho</option>
-                            <option value="P">P</option>
-                            <option value="M" selected>M</option>
-                            <option value="G">G</option>
-                            <option value="XG">XG</option>
-                        </select>
-                    </div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('babysec')">−</button>
-                        <div class="quantity-display" id="qty-babysec">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('babysec')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('babysec', 'Fraldas Babysec', 49.99)">Adicionar</button>
+                <div class="product-card" data-price="32.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" class="product-image">
+                    <div class="product-name">Fralda Babysec Mega</div>
+                    <div class="product-price">R$ 32,99</div>
+                    <label class="label-small">Tamanho:</label>
+                    <select class="input-mini"><option>M</option><option>G</option><option>XG</option></select>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Babysec Mega')">CONFIRMAR</button>
                 </div>
-
-                <!-- Fraldas Turma da Mônica -->
-                <div class="product-card" data-price="45.99">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/fraudaampers.jpg" alt="Turma da Mônica" class="product-image">
-                    <div class="product-name">Fraldas Turma da Mônica P.</div>
-                    <div class="product-price">R$ 45,99</div>
-                    <div class="size-selector">
-                        <label class="size-label">Tamanho:</label>
-                        <select id="size-turma" onchange="updateSize('turma', this.value)">
-                            <option value="">Escolha o tamanho</option>
-                            <option value="P">P</option>
-                            <option value="M" selected>M</option>
-                            <option value="G">G</option>
-                            <option value="XG">XG</option>
-                        </select>
-                    </div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('turma')">−</button>
-                        <div class="quantity-display" id="qty-turma">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('turma')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('turma', 'Fraldas Turma da Mônica', 45.99)">Adicionar</button>
+                <div class="product-card" data-price="7.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Lencohuggies.jpg" class="product-image">
+                    <div class="product-name">Toalha Bebê Limpinho 140un</div>
+                    <div class="product-price">R$ 7,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Toalha Cimed')">CONFIRMAR</button>
                 </div>
-
-                <!-- Fraldas Huggies -->
-                <div class="product-card" data-price="9.90">
-                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Lencohuggies.jpg" alt="Huggies" class="product-image">
-                    <div class="product-name">Lenços Umedecidos Huggies Max Clean 48 un</div>
-                    <div class="product-price">R$ 9,90</div>
-                    <div class="quantity-control">
-                        <button class="quantity-btn" onclick="decrementQty('huggies')">−</button>
-                        <div class="quantity-display" id="qty-huggies">0</div>
-                        <button class="quantity-btn" onclick="incrementQty('huggies')">+</button>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('huggies', 'Lenços Huggies', 9.90)">Adicionar</button>
-                </div>
-            </div>
-            <div class="carousel-nav">
-                <button class="carousel-btn" onclick="scrollCarousel(-1)">❮</button>
-                <button class="carousel-btn" onclick="scrollCarousel(1)">❯</button>
             </div>
         </div>
 
-        <!-- OUTROS PRODUTOS -->
-        <div class="section-title">Outros Produtos</div>
-
-        <div class="product-card" data-price="38.90" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" alt="Leite Ninho" class="product-image">
-            <div class="product-name">Leite Ninho Fases 1+ Lata 800g</div>
-            <div class="product-price">R$ 38,90</div>
-            <div class="quantity-control">
-                <button class="quantity-btn" onclick="decrementQty('ninho')">−</button>
-                <div class="quantity-display" id="qty-ninho">0</div>
-                <button class="quantity-btn" onclick="incrementQty('ninho')">+</button>
+        <div class="section-title">Leites e Mucilon</div>
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                <div class="product-card" data-price="32.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" class="product-image">
+                    <div class="product-name">Mucilon Sachê 230g</div>
+                    <div class="product-price">R$ 32,99</div>
+                    <label class="label-small">Sabor:</label>
+                    <select class="input-mini"><option>Arroz</option><option>Milho</option><option>Multicereais</option></select>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Mucilon')">CONFIRMAR</button>
+                </div>
+                <div class="product-card" data-price="17.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" class="product-image">
+                    <div class="product-name">Leite Ninho Integral 380g</div>
+                    <div class="product-price">R$ 17,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Ninho Integral 380g')">CONFIRMAR</button>
+                </div>
+                <div class="product-card" data-price="42.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" class="product-image">
+                    <div class="product-name">Ninho Fases +1 800g</div>
+                    <div class="product-price">R$ 42,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Ninho Fases 800g')">CONFIRMAR</button>
+                </div>
+                <div class="product-card" data-price="57.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Leitninho.jpg" class="product-image">
+                    <div class="product-name">Aptamil Premium 2 800g</div>
+                    <div class="product-price">R$ 57,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Aptamil Premium 2')">CONFIRMAR</button>
+                </div>
             </div>
-            <button class="add-btn" onclick="addToCart('ninho', 'Leite Ninho', 38.90)">Adicionar</button>
         </div>
 
-        <div class="product-card" data-price="5.50" style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-            <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" alt="Dorflex" class="product-image">
-            <div class="product-name">Dorflex Caixa 10 comprimidos</div>
-            <div class="product-price">R$ 5,50</div>
-            <div class="quantity-control">
-                <button class="quantity-btn" onclick="decrementQty('dorflex')">−</button>
-                <div class="quantity-display" id="qty-dorflex">0</div>
-                <button class="quantity-btn" onclick="incrementQty('dorflex')">+</button>
+        <div class="section-title">Comprimidos e Higiene</div>
+        <div class="carousel-wrapper">
+            <div class="carousel">
+                <div class="product-card" data-price="14.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" class="product-image">
+                    <div class="product-name">OFF Loção Family 200ml</div>
+                    <div class="product-price">R$ 14,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'OFF Repelente')">CONFIRMAR</button>
+                </div>
+                <div class="product-card" data-price="7.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" class="product-image">
+                    <div class="product-name">Nistatina+Zinco 60g Neo Q.</div>
+                    <div class="product-price">R$ 7,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Nistatina Neo Q.')">CONFIRMAR</button>
+                </div>
+                <div class="product-card" data-price="14.99">
+                    <img src="https://ultrapopularrio.github.io/Tempreco/img/Dorflex,jpg.png" class="product-image">
+                    <div class="product-name">Sabonete Granado Refil 250ml</div>
+                    <div class="product-price">R$ 14,99</div>
+                    <div style="height: 52px;"></div>
+                    <div class="quantity-control"><button class="quantity-btn" onclick="changeQty(this, -1)">-</button><div class="quantity-display">0</div><button class="quantity-btn" onclick="changeQty(this, 1)">+</button></div>
+                    <button class="add-btn" onclick="confirmItem(this, 'Sabonete Granado')">CONFIRMAR</button>
+                </div>
             </div>
-            <button class="add-btn" onclick="addToCart('dorflex', 'Dorflex', 5.50)">Adicionar</button>
         </div>
 
-        <!-- CARRINHO -->
-        <div class="section-title">Seu Pedido</div>
-        <div class="cart-section">
-            <div id="cart-items"></div>
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cart-total">R$ 0,00</span>
+        <div class="section-title">Resumo do Pedido</div>
+        <div class="cart-preview">
+            <div id="cart-list" style="font-size: 14px; color: #555;">Nenhum produto confirmado...</div>
+            <div class="total-row">
+                <span>Total Estimado:</span>
+                <span id="display-total">R$ 0,00</span>
             </div>
         </div>
 
-        <!-- FORMULÁRIO -->
-        <div class="section-title">Dados para Entrega e Pagamento</div>
-
-        <form onsubmit="submitForm(event)">
-            <div class="form-group">
-                <label class="form-label">Escolha a loja mais próxima <span class="required">*</span></label>
-                <select id="store" required>
-                    <option value="">Selecione uma loja</option>
-                    <option value="5521968450574|Ultra Popular Vasco - Belford Roxo">Ultra Popular Vasco - Belford Roxo</option>
-                    <option value="5521968450574|Ultra Popular Lote XV - Belford Roxo">Ultra Popular Lote XV - Belford Roxo</option>
-                    <option value="5521993202884|Ultra Jardim Primavera - Duque de Caxias">Ultra Jardim Primavera - Duque de Caxias</option>
-                    <option value="5521976488682|Ultra Jardim Gramacho - Duque de Caxias">Ultra Jardim Gramacho - Duque de Caxias</option>
-                </select>
-                <div class="error-message" id="store-error">Por favor, selecione a loja mais próxima para enviar seu pedido.</div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Nome Completo <span class="required">*</span></label>
-                <input type="text" id="Carlos de Bragança Lopes" required>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Telefone / WhatsApp <span class="required">*</span></label>
-                <input type="tel" id="phone" placeholder="(XX) XXXXX-XXXX" required>
-            </div>
-
-            <div class="form-row">
+        <div class="form-card">
+            <h3>Dados para Entrega e Pagamento</h3>
+            <form onsubmit="sendWhatsApp(event)">
                 <div class="form-group">
-                    <label class="form-label">Rua / Avenida <span class="required">*</span></label>
-                    <input type="text" id="street" required>
+                    <label>Escolha a loja mais próxima *</label>
+                    <select id="store" required>
+                        <option value="">Selecione uma loja</option>
+                        <option value="5521968450574|Vasco - Belford Roxo">Ultra Popular Vasco - Belford Roxo</option>
+                        <option value="5521968450574|Lote XV - Belford Roxo">Ultra Popular Lote XV - Belford Roxo</option>
+                        <option value="5521993202884|Primavera - Caxias">Ultra Primavera - Caxias</option>
+                        <option value="5521976488682|Gramacho - Caxias">Ultra Jardim Gramacho - Caxias</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Número <span class="required">*</span></label>
-                    <input type="text" id="number" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label">Complemento (Opcional)</label>
-                    <input type="text" id="complement" placeholder="Apto, Bloco, Casa">
+                    <label>Nome Completo *</label>
+                    <input type="text" id="cust-name" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Bairro <span class="required">*</span></label>
-                    <input type="text" id="neighborhood" required>
+                    <label>Telefone / WhatsApp *</label>
+                    <input type="text" id="cust-tel" required placeholder="(XX) XXXXX-XXXX">
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Ponto de Referência (Opcional)</label>
-                <input type="text" id="reference">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Quer incluir algum produto que não está na lista? (Opcional)</label>
-                <textarea id="additional" placeholder="Digite aqui nome e quantidade desejada, ex:&#10;2x Novalgina 1g cx 10 comp&#10;1x Protetor Solar Sundown FPS 50"></textarea>
-                <div class="note">Obs: A disponibilidade e o preço destes itens serão confirmados via WhatsApp.</div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Forma de Pagamento <span class="required">*</span></label>
-                <select id="payment" required>
-                    <option value="">Selecione a forma de pagamento</option>
-                    <option value="Dinheiro">Dinheiro</option>
-                    <option value="Cartão">Cartão</option>
-                    <option value="Pix">Pix</option>
-                </select>
-            </div>
-
-            <button type="submit" class="submit-btn">Enviar Pedido pelo WhatsApp</button>
-        </form>
+                <div class="form-grid">
+                    <div class="form-group"><label>Rua / Avenida *</label><input type="text" id="cust-street" required></div>
+                    <div class="form-group"><label>Número *</label><input type="text" id="cust-num" required></div>
+                    <div class="form-group"><label>Complemento (Opcional)</label><input type="text" id="cust-comp" placeholder="Apto, Bloco, Casa"></div>
+                    <div class="form-group"><label>Bairro *</label><input type="text" id="cust-bairro" required></div>
+                </div>
+                <div class="form-group">
+                    <label>Ponto de Referência (Opcional)</label>
+                    <input type="text" id="cust-ref">
+                </div>
+                <div class="form-group">
+                    <label>Quer incluir algum produto que não está na lista? (Opcional)</label>
+                    <textarea id="extra-items" rows="3" placeholder="Ex: 2x Novalgina 1g"></textarea>
+                    <small style="color: #666; font-style: italic;">Obs: A disponibilidade e o preço destes itens serão confirmados via WhatsApp.</small>
+                </div>
+                <div class="form-group">
+                    <label>Forma de Pagamento *</label>
+                    <select id="cust-pay" required>
+                        <option value="">Selecione a forma de pagamento</option>
+                        <option>Dinheiro</option><option>Cartão (Maquininha)</option><option>Pix</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">ENVIAR PEDIDO VIA WHATSAPP</button>
+            </form>
+        </div>
     </div>
 
     <script>
-        const cart = {};
-        const sizes = {};
+        let cart = [];
 
-        function incrementQty(product) {
-            const qty = parseInt(document.getElementById(`qty-${product}`).textContent) || 0;
-            document.getElementById(`qty-${product}`).textContent = qty + 1;
-            updateTotalPreview();
+        function changeQty(btn, delta) {
+            const display = btn.parentElement.querySelector('.quantity-display');
+            let val = parseInt(display.textContent) + delta;
+            if (val < 0) val = 0;
+            display.textContent = val;
+            updateTotal();
         }
 
-        function decrementQty(product) {
-            const qty = parseInt(document.getElementById(`qty-${product}`).textContent) || 0;
-            if (qty > 0) {
-                document.getElementById(`qty-${product}`).textContent = qty - 1;
-                updateTotalPreview();
-            }
+        function confirmItem(btn, name) {
+            const card = btn.closest('.product-card');
+            const qty = parseInt(card.querySelector('.quantity-display').textContent);
+            const price = parseFloat(card.dataset.price);
+            const size = card.querySelector('.input-mini') ? card.querySelector('.input-mini').value : '';
+
+            if (qty === 0) return alert("Selecione a quantidade primeiro!");
+
+            cart.push({ name: name + (size ? " (" + size + ")" : ""), price: price, qty: qty });
+            card.querySelector('.quantity-display').textContent = "0"; 
+            renderCart();
+            updateTotal();
         }
 
-        function updateTotalPreview() {
+        function renderCart() {
+            const list = document.getElementById('cart-list');
+            if (cart.length === 0) { list.innerHTML = "Nenhum produto confirmado..."; return; }
+            list.innerHTML = cart.map(i => `<div>✅ ${i.qty}x ${i.name}</div>`).join('');
+        }
+
+        function updateTotal() {
             let total = 0;
-            
-            // Somar itens já no carrinho
-            for (const key in cart) {
-                total += cart[key].price * cart[key].qty;
-            }
-            
-            // Somar itens selecionados nos cards (preview)
-            const qtyDisplays = document.querySelectorAll('.quantity-display');
-            qtyDisplays.forEach(display => {
-                const qty = parseInt(display.textContent) || 0;
-                if (qty > 0) {
-                    const productCard = display.closest('.product-card');
-                    if (!productCard) return;
-                    
-                    // 1) tentar obter preço via data-price (mais confiável)
-                    let price = NaN;
-                    if (productCard.dataset && productCard.dataset.price) {
-                        price = parseFloat(productCard.dataset.price);
-                    }
-                    
-                    // 2) se não existir, tentar extrair do elemento .product-price (texto visível)
-                    if (isNaN(price)) {
-                        const priceEl = productCard.querySelector('.product-price');
-                        if (priceEl) {
-                            // remover tudo que não é número, vírgula ou ponto e normalizar vírgula para ponto
-                            const raw = priceEl.textContent.replace(/[^\d.,]/g, '').replace(',', '.');
-                            price = parseFloat(raw);
-                        }
-                    }
-                    
-                    // 3) fallback: extrair do onclick do botão addToCart, mas somente se o botão existir
-                    if (isNaN(price)) {
-                        const addBtn = productCard.querySelector('[onclick*="addToCart"]');
-                        if (addBtn) {
-                            const onclickAttr = addBtn.getAttribute('onclick') || '';
-                            const priceMatch = onclickAttr.match(/,\s*([\d.]+)/);
-                            if (priceMatch && priceMatch[1]) {
-                                price = parseFloat(priceMatch[1]);
-                            }
-                        }
-                    }
-                    
-                    if (!isNaN(price)) {
-                        total += price * qty;
-                    }
-                }
+            cart.forEach(item => total += item.price * item.qty);
+            document.querySelectorAll('.product-card').forEach(card => {
+                const qty = parseInt(card.querySelector('.quantity-display').textContent);
+                if (qty > 0) total += parseFloat(card.dataset.price) * qty;
             });
+            document.getElementById('display-total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        function sendWhatsApp(e) {
+            e.preventDefault();
+            const store = document.getElementById('store').value.split('|');
+            const extra = document.getElementById('extra-items').value;
+            if (cart.length === 0 && !extra) return alert("Adicione itens ou descreva o que deseja nos extras!");
+
+            let texto = `*NOVO PEDIDO - ULTRA POPULAR*\n*Loja:* ${store[1]}\n*Cliente:* ${document.getElementById('cust-name').value}\n\n*ITENS:*\n`;
+            cart.forEach(i => texto += `• ${i.qty}x ${i.name}\n`);
+            if(extra) texto += `\n*EXTRAS:* ${extra}\n`;
             
-            const totalEl = document.getElementById('cart-total');
-            if (totalEl) {
-                totalEl.textContent = `R$ ${total.toFixed(2)}`;
-            }
-        }
+            texto += `\n*ENDEREÇO:* ${document.getElementById('cust-street').value}, ${document.getElementById('cust-num').value}`;
+            texto += `\n*BAIRRO:* ${document.getElementById('cust-bairro').value}`;
+            texto += `\n*PAGAMENTO:* ${document.getElementById('cust-pay').value}`;
 
-        function updateSize(product, size) {
-            sizes[product] = size;
-        }
-
-        function addToCart(productId, productName, price) {
-            const qty = parseInt(document.getElementById(`qty-${productId}`).textContent) || 0;
-            const size = sizes[productId] || '';
-            
-            if (qty === 0) {
-                alert('Por favor, selecione uma quantidade');
-                return;
-            }
-
-            if (productId.includes('pampers') || productId.includes('babysec') || productId.includes('turma')) {
-                if (!size) {
-                    alert('Por favor, selecione um tamanho');
-                    return;
-                }
-            }
-
-            const key = `${productId}-${size}`;
-            const displayName = size ? `${productName} - Tamanho ${size}` : productName;
-
-            if (cart[key]) {
-                cart[key].qty += qty;
-            } else {
-                cart[key] = { name: displayName, price: parseFloat(price), qty: qty };
-            }
-
-            updateCartDisplay();
-            document.getElementById(`qty-${productId}`).textContent = '0';
-            updateTotalPreview();
-            
-            // Scroll automático para o carrinho
-            setTimeout(() => {
-                const cartSection = document.querySelector('.cart-section');
-                if (cartSection) {
-                    cartSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 100);
-        }
-
-        function updateCartDisplay() {
-            const cartItems = document.getElementById('cart-items');
-            cartItems.innerHTML = '';
-            let total = 0;
-
-            for (const key in cart) {
-                const item = cart[key];
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-
-                cartItems.innerHTML += `
-                    <div class="cart-item">
-                        <span>${item.qty}x ${item.name}</span>
-                        <span>R$ ${subtotal.toFixed(2)}</span>
-                    </div>
-                `;
-            }
-
-            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
-        }
-
-        function scrollCarousel(direction) {
-            const carousel = document.getElementById('carousel');
-            const scrollAmount = carousel.offsetWidth * 0.8;
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-
-        function formatPhone(phone) {
-            const digits = phone.replace(/\D/g, '');
-            if (digits.length === 11) {
-                return digits;
-            }
-            return digits;
-        }
-
-        function submitForm(event) {
-            event.preventDefault();
-
-            const store = document.getElementById('store').value;
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const street = document.getElementById('street').value;
-            const number = document.getElementById('number').value;
-            const complement = document.getElementById('complement').value;
-            const neighborhood = document.getElementById('neighborhood').value;
-            const reference = document.getElementById('reference').value;
-            const additional = document.getElementById('additional').value;
-            const payment = document.getElementById('payment').value;
-
-            if (!store) {
-                document.getElementById('store-error').style.display = 'block';
-                return;
-            }
-            document.getElementById('store-error').style.display = 'none';
-
-            if (Object.keys(cart).length === 0) {
-                alert('Por favor, adicione pelo menos um produto ao carrinho');
-                return;
-            }
-
-            const [whatsappNumber, storeName] = store.split('|');
-
-            let message = `*PEDIDO ULTRA POPULAR*\n\n`;
-            message += `*Loja:* ${storeName}\n`;
-            message += `*Cliente:* ${name}\n`;
-            message += `*Telefone:* ${phone}\n\n`;
-
-            message += `*PRODUTOS:*\n`;
-            let total = 0;
-            for (const key in cart) {
-                const item = cart[key];
-                const subtotal = item.price * item.qty;
-                total += subtotal;
-                message += `• ${item.qty}x ${item.name} - R$ ${subtotal.toFixed(2)}\n`;
-            }
-
-            if (additional) {
-                message += `\n*PRODUTOS ADICIONAIS:*\n`;
-                message += additional.split('\n').map(line => `• ${line}`).join('\n');
-                message += `\n\nObs: A disponibilidade e o preço destes itens serão confirmados via WhatsApp.\n`;
-            }
-
-            message += `\n*TOTAL:* R$ ${total.toFixed(2)}\n\n`;
-
-            message += `*ENDEREÇO DE ENTREGA:*\n`;
-            message += `${street}, ${number}`;
-            if (complement) message += ` - ${complement}`;
-            message += `\n${neighborhood}`;
-            if (reference) message += `\nPonto de Referência: ${reference}`;
-
-            message += `\n\n*FORMA DE PAGAMENTO:* ${payment}\n`;
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-            }, 100);
+            window.open(`https://wa.me/${store[0]}?text=${encodeURIComponent(texto)}`);
         }
     </script>
 </body>
