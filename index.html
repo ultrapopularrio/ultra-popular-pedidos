@@ -485,6 +485,15 @@
     <script>
         const cart = {};
         const sizes = {};
+        // Mapa de preços dos produtos para referência rápida
+        const productPrices = {
+            'pampers': 54.99,
+            'babysec': 49.99,
+            'turma': 45.99,
+            'huggies': 9.90,
+            'ninho': 38.90,
+            'dorflex': 5.50
+        };
 
         function incrementQty(product) {
             const qty = parseInt(document.getElementById(`qty-${product}`).textContent) || 0;
@@ -514,12 +523,9 @@
                 const qty = parseInt(display.textContent) || 0;
                 if (qty > 0) {
                     const productId = display.id.replace('qty-', '');
-                    const addBtn = display.closest('.product-card').querySelector('.add-btn');
-                    // Extrair o preço do atributo onclick do botão Adicionar
-                    const onclickAttr = addBtn.getAttribute('onclick');
-                    const priceMatch = onclickAttr.match(/,\s*([\d.]+)\)/);
-                    if (priceMatch && priceMatch[1]) {
-                        total += parseFloat(priceMatch[1]) * qty;
+                    // Usar o mapa de preços em vez de extrair do onclick
+                    if (productPrices[productId]) {
+                        total += productPrices[productId] * qty;
                     }
                 }
             });
