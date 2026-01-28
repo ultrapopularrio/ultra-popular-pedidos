@@ -272,7 +272,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="https://ultrapopularrio.github.io/Tempreco/img/logo.png" alt="Ultra Popular">
+        <img src="https://ultrapopularrio.github.io/Tempreco/img/LogoUltraPopular.jpg" alt="Ultra Popular">
         <div class="header-text">
             <h1>Monte seu pedido abaixo e envie pelo WhatsApp!</h1>
         </div>
@@ -489,13 +489,42 @@
         function incrementQty(product) {
             const qty = parseInt(document.getElementById(`qty-${product}`).textContent) || 0;
             document.getElementById(`qty-${product}`).textContent = qty + 1;
+            updateTotalPreview();
         }
 
         function decrementQty(product) {
             const qty = parseInt(document.getElementById(`qty-${product}`).textContent) || 0;
             if (qty > 0) {
                 document.getElementById(`qty-${product}`).textContent = qty - 1;
+                updateTotalPreview();
             }
+        }
+
+        function updateTotalPreview() {
+            let total = 0;
+            
+            // Somar itens já no carrinho
+            for (const key in cart) {
+                total += cart[key].price * cart[key].qty;
+            }
+            
+            // Somar itens selecionados nos cards (preview)
+            const qtyDisplays = document.querySelectorAll('.quantity-display');
+            qtyDisplays.forEach(display => {
+                const qty = parseInt(display.textContent) || 0;
+                if (qty > 0) {
+                    const productId = display.id.replace('qty-', '');
+                    const addBtn = display.closest('.product-card').querySelector('.add-btn');
+                    // Extrair o preço do atributo onclick do botão Adicionar
+                    const onclickAttr = addBtn.getAttribute('onclick');
+                    const priceMatch = onclickAttr.match(/,\s*([\d.]+)\)/);
+                    if (priceMatch && priceMatch[1]) {
+                        total += parseFloat(priceMatch[1]) * qty;
+                    }
+                }
+            });
+            
+            document.getElementById('cart-total').textContent = `R$ ${total.toFixed(2)}`;
         }
 
         function updateSize(product, size) {
@@ -529,6 +558,7 @@
 
             updateCartDisplay();
             document.getElementById(`qty-${productId}`).textContent = '0';
+            updateTotalPreview();
             
             // Scroll automático para o carrinho
             setTimeout(() => {
