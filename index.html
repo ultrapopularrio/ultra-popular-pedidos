@@ -221,10 +221,14 @@
                 </div>
                 <div class="form-group">
                     <label>Forma de Pagamento *</label>
-                    <select id="cust-pay" required>
+                    <select id="cust-pay" required onchange="toggleTrocoField()">
                         <option value="">Selecione a forma de pagamento</option>
-                        <option>Dinheiro (Precisa de Troco?)</option><option>Cartão (Maquininha)</option><option>Pix (QR Code)</option>
+                        <option>Dinheiro</option><option>Cartão (Maquininha)</option><option>Pix (QR Code)</option>
                     </select>
+                </div>
+                <div class="form-group" id="troco-field" style="display: none;">
+                    <label>Deseja troco? Se sim, para qual valor? (Opcional)</label>
+                    <input type="text" id="cust-troco" placeholder="Ex: 10, 20, 50">
                 </div>
                 <button type="submit" class="submit-btn">ENVIAR PEDIDO VIA WHATSAPP</button>
             </form>
@@ -272,19 +276,32 @@
             document.getElementById('display-total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
         }
 
+        function toggleTrocoField() {
+            const paymentSelect = document.getElementById('cust-pay');
+            const trocoField = document.getElementById('troco-field');
+            if (paymentSelect.value === 'Dinheiro') {
+                trocoField.style.display = 'block';
+            } else {
+                trocoField.style.display = 'none';
+                document.getElementById('cust-troco').value = '';
+            }
+        }
+
         function sendWhatsApp(e) {
             e.preventDefault();
             const store = document.getElementById('store').value.split('|');
             const extra = document.getElementById('extra-items').value;
             if (cart.length === 0 && !extra) return alert("Adicione itens ou descreva o que deseja nos extras!");
 
-            let texto = `*NOVO PEDIDO - ULTRA POPULAR*\n*Loja:* ${store[1]}\n*Cliente:* ${document.getElementById('cust-name').value}\n\n*ITENS:*\n`;
+            let texto = `*NOVO PEDIDO - ULTRA POPULAR*\n*Loja:* ${store[1]}\n*Cliente:* ${document.getElementById('cust-name').value}\n*Telefone:* ${document.getElementById('cust-tel').value}\n\n*ITENS:*\n`;
             cart.forEach(i => texto += `• ${i.qty}x ${i.name}\n`);
-            if(extra) texto += `\n*EXTRAS:* ${extra}\n`;
+            if(extra) texto += `\n*PRODUTOS ADICIONAIS:* ${extra}\n`;
             
             texto += `\n*ENDEREÇO:* ${document.getElementById('cust-street').value}, ${document.getElementById('cust-num').value}`;
             texto += `\n*BAIRRO:* ${document.getElementById('cust-bairro').value}`;
-            texto += `\n*PAGAMENTO:* ${document.getElementById('cust-pay').value}`;
+            const pagamento = document.getElementById('cust-pay').value;
+            const troco = document.getElementById('cust-troco').value;
+            texto += `\n*PAGAMENTO:* ${pagamento}${troco ? ' (Troco para: R$ ' + troco + ')' : ''}`;
 
             window.open(`https://wa.me/${store[0]}?text=${encodeURIComponent(texto)}`);
         }
