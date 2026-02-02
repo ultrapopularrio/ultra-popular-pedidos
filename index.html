@@ -188,7 +188,7 @@
             <form onsubmit="sendWhatsApp(event)">
                 <div class="form-group">
                     <label>Escolha a loja mais próxima *</label>
-                    <select id="store" required>
+                    <select id="store" required onchange="updateTotal()">
                         <option value="">Selecione uma loja</option>
                         <option value="5521968450574|Vasco - Belford Roxo">Ultra Vasco - Belford Roxo</option>
                         <option value="5521968450574|Lote XV - Belford Roxo">Ultra Lote XV - Belford Roxo</option>
@@ -266,6 +266,12 @@
             list.innerHTML = cart.map(i => `<div>✅ ${i.qty}x ${i.name}</div>`).join('');
         }
 
+        function calculateFrete() {
+            const storeSelect = document.getElementById('store');
+            const storeName = storeSelect.options[storeSelect.selectedIndex].text;
+            return storeName.includes('Primavera') ? 0 : 0.75;
+        }
+
         function updateTotal() {
             let total = 0;
             cart.forEach(item => total += item.price * item.qty);
@@ -273,7 +279,9 @@
                 const qty = parseInt(card.querySelector('.quantity-display').textContent);
                 if (qty > 0) total += parseFloat(card.dataset.price) * qty;
             });
-            document.getElementById('display-total').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            const frete = calculateFrete();
+            const totalComFrete = total + frete;
+            document.getElementById('display-total').textContent = `R$ ${totalComFrete.toFixed(2).replace('.', ',')}`;
         }
 
         function toggleTrocoField() {
@@ -293,12 +301,19 @@
             const extra = document.getElementById('extra-items').value;
             if (cart.length === 0 && !extra) return alert("Adicione itens ou descreva o que deseja nos extras!");
 
+            let total = 0;
+            cart.forEach(item => total += item.price * item.qty);
+            const frete = calculateFrete();
+            const totalComFrete = total + frete;
+
             let texto = `*NOVO PEDIDO - ULTRA POPULAR*\n*Loja:* ${store[1]}\n*Cliente:* ${document.getElementById('cust-name').value}\n*Telefone:* ${document.getElementById('cust-tel').value}\n\n*ITENS:*\n`;
             cart.forEach(i => texto += `• ${i.qty}x ${i.name}\n`);
             if(extra) texto += `\n*PRODUTOS ADICIONAIS:* ${extra}\n`;
             
             texto += `\n*ENDEREÇO:* ${document.getElementById('cust-street').value}, ${document.getElementById('cust-num').value}`;
             texto += `\n*BAIRRO:* ${document.getElementById('cust-bairro').value}`;
+            if (frete > 0) texto += `\n*FRETE:* R$ ${frete.toFixed(2).replace('.', ',')}`;
+            texto += `\n*TOTAL:* R$ ${totalComFrete.toFixed(2).replace('.', ',')}`;
             const pagamento = document.getElementById('cust-pay').value;
             const troco = document.getElementById('cust-troco').value;
             texto += `\n*PAGAMENTO:* ${pagamento}${troco ? ' (Troco para: R$ ' + troco + ')' : ''}`;
